@@ -54,7 +54,7 @@ class _StartingPageState extends State<StartingPage> {
               onTap: () {
                 Get.to(() => const AddNewTask(),
                     transition: Transition.fade,
-                    duration: const Duration(seconds: 1));
+                    duration: const Duration(milliseconds: 300));
               },
               child: const Button(
                 btnColor: ThemeColors.appMainColor,
@@ -69,7 +69,7 @@ class _StartingPageState extends State<StartingPage> {
               onTap: () {
                 Get.to(() => const TaskList(),
                     transition: Transition.fade,
-                    duration: const Duration(seconds: 1));
+                    duration: const Duration(milliseconds: 300));
               },
               child: const Button(
                 btnColor: ThemeColors.secondaryColor,
