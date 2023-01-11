@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iau_task_manager/pages/add_new_task.dart';
 import 'package:iau_task_manager/pages/tasks_list.dart';
 import 'package:iau_task_manager/utils/main_theme.dart';
 import 'package:iau_task_manager/widgets/button.dart';
@@ -49,10 +50,17 @@ class _StartingPageState extends State<StartingPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height / 2,
             ),
-            const Button(
-              btnColor: ThemeColors.appMainColor,
-              btnLabel: "Add New Task",
-              labelColor: ThemeColors.secondaryColor,
+            InkWell(
+              onTap: () {
+                Get.to(() => const AddNewTask(),
+                    transition: Transition.fade,
+                    duration: const Duration(seconds: 1));
+              },
+              child: const Button(
+                btnColor: ThemeColors.appMainColor,
+                btnLabel: "Add New Task",
+                labelColor: ThemeColors.secondaryColor,
+              ),
             ),
             const SizedBox(
               height: 15,
