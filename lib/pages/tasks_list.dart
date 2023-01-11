@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iau_task_manager/utils/main_theme.dart';
 import 'package:iau_task_manager/widgets/task_box.dart';
 
@@ -33,21 +34,25 @@ class TaskList extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            alignment: Alignment.topLeft,
-            padding: const EdgeInsets.only(left: 18, top: 65),
-            width: double.maxFinite,
-            height: MediaQuery.of(context).size.height / 2.5,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage("assets/header.jpg"),
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.only(left: 18, top: 65),
+              width: double.maxFinite,
+              height: MediaQuery.of(context).size.height / 2.5,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/header.jpg"),
+                ),
               ),
-            ),
-            child: const Icon(
-              Icons.arrow_back,
-              color: ThemeColors.textColor,
-            ),
-          ),
+              child: InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: ThemeColors.textColor,
+                ),
+              )),
           Container(
             padding: const EdgeInsets.only(left: 18, right: 18),
             child: Row(
