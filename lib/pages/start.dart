@@ -57,9 +57,11 @@ class _StartingPageState extends State<StartingPage> {
             const SizedBox(
               height: 15,
             ),
-             InkWell(
-              onTap: (){
-                Get.to(()=>TaskList(),transition: Transition.fade)
+            InkWell(
+              onTap: () {
+                Get.to(() => const TaskList(),
+                    transition: Transition.fade,
+                    duration: const Duration(seconds: 1));
               },
               child: const Button(
                 btnColor: ThemeColors.secondaryColor,
@@ -67,7 +69,6 @@ class _StartingPageState extends State<StartingPage> {
                 labelColor: ThemeColors.appMainColor,
               ),
             ),
-
           ],
         ),
       ),
