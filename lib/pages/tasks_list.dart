@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iau_task_manager/controllers/data_controller.dart';
 import 'package:iau_task_manager/utils/main_theme.dart';
 import 'package:iau_task_manager/widgets/task_box.dart';
 
@@ -8,9 +9,15 @@ import '../widgets/button.dart';
 class TaskList extends StatelessWidget {
   const TaskList({Key? key}) : super(key: key);
 
+  _loadData() async {
+    await Get.find<DataController>().getData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List tasksList = ["hello", "hate my life"];
+    print(Get.find<DataController>().myData.length);
+    _loadData();
+    List myData = ["hello", "hate my life"];
     final leftIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
       color: ThemeColors.secondaryTextColor,
@@ -92,9 +99,9 @@ class TaskList extends StatelessWidget {
               ],
             ),
           ),
-          Flexible(
-            child: ListView.builder(
-                itemCount: tasksList.length,
+          Flexible(child: GetBuilder<DataController>(builder: (controller) {
+            return ListView.builder(
+                itemCount: controller.myData.length,
                 itemBuilder: (context, index) {
                   return Dismissible(
                       background: leftIcon,
@@ -150,12 +157,12 @@ class TaskList extends StatelessWidget {
                         margin: const EdgeInsets.only(
                             left: 18, right: 18, bottom: 10),
                         child: TaskBox(
-                          text: tasksList[index],
+                          text: controller.myData[index]["TaskTitle"],
                           color: ThemeColors.secondaryTextColor,
                         ),
                       ));
-                }),
-          )
+                });
+          }))
         ],
       ),
     );
