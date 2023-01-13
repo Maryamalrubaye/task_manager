@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iau_task_manager/controllers/data_controller.dart';
+import 'package:iau_task_manager/pages/tasks_list.dart';
 import 'package:iau_task_manager/utils/main_theme.dart';
 import 'package:iau_task_manager/widgets/text_field.dart';
 
+import '../widgets/alerts.dart';
 import '../widgets/button.dart';
 
 class AddNewTask extends StatelessWidget {
@@ -12,6 +15,25 @@ class AddNewTask extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController taskTitle = TextEditingController();
     TextEditingController taskContent = TextEditingController();
+
+    bool _dataValidation() {
+      if (taskTitle.text.trim() == '') {
+        Message.taskProblemAlert("Task Title", "You don't have task title");
+        return false;
+      } else if (taskContent.text.trim() == '') {
+        Message.taskProblemAlert("Task Content", "You don't have task Content");
+        return false;
+      } else if (taskTitle.text.length <= 5) {
+        Message.taskProblemAlert(
+            "Task Title", "The task title must be at least 5 character!");
+        return false;
+      } else if (taskContent.text.length <= 10) {
+        Message.taskProblemAlert(
+            "Task Content", "The task Content must be at least 10 character!");
+        return false;
+      }
+      return true;
+    }
 
     return Scaffold(
       body: Container(
@@ -59,10 +81,22 @@ class AddNewTask extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Button(
-                  btnColor: ThemeColors.appMainColor,
-                  btnLabel: "Add",
-                  labelColor: ThemeColors.secondaryColor,
+                GestureDetector(
+                  onTap: () {
+                    if (_dataValidation()) {
+                      Get.find<DataController>().postData(
+                          taskTitle.text.trim(), taskContent.text.trim());
+                      Get.to(
+                        () => const TaskList(),
+                        transition: Transition.circularReveal,
+                      );
+                    }
+                  },
+                  child: const Button(
+                    btnColor: ThemeColors.appMainColor,
+                    btnLabel: "Add",
+                    labelColor: ThemeColors.secondaryColor,
+                  ),
                 )
               ],
             ),
