@@ -4,6 +4,7 @@ import 'package:iau_task_manager/controllers/data_controller.dart';
 import 'package:iau_task_manager/utils/main_theme.dart';
 import 'package:iau_task_manager/widgets/task_box.dart';
 
+import '../routes/routes.dart';
 import '../widgets/button.dart';
 
 class TaskList extends StatelessWidget {
@@ -16,8 +17,8 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(Get.find<DataController>().myData.length);
+    var text = Get.find<DataController>().myData.length;
     _loadData();
-    List myData = ["hello", "hate my life"];
     final leftIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
       color: ThemeColors.secondaryTextColor,
@@ -91,8 +92,8 @@ class TaskList extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Text(
-                  "2",
+                Text(
+                  text.toString(),
                   style:
                       TextStyle(fontSize: 20, color: ThemeColors.appMainColor),
                 )
@@ -128,19 +129,34 @@ class TaskList extends StatelessWidget {
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Button(
-                                        btnColor: ThemeColors.appMainColor,
-                                        btnLabel: "View Task",
-                                        labelColor: ThemeColors.secondaryColor,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(Routers.getViewTaskRoute(
+                                              controller.myData[index]["ID"]
+                                                  .toString()));
+                                        },
+                                        child: const Button(
+                                          btnColor: ThemeColors.appMainColor,
+                                          btnLabel: "View Task",
+                                          labelColor:
+                                              ThemeColors.secondaryColor,
+                                        ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
-                                      Button(
-                                        btnColor: ThemeColors.secondaryColor,
-                                        btnLabel: "Edit Task",
-                                        labelColor: ThemeColors.appMainColor,
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(Routers.getEditTaskRoute(
+                                              controller.myData[index]["ID"]
+                                                  .toString()));
+                                        },
+                                        child: const Button(
+                                          btnColor: ThemeColors.secondaryColor,
+                                          btnLabel: "Edit Task",
+                                          labelColor: ThemeColors.appMainColor,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -148,6 +164,7 @@ class TaskList extends StatelessWidget {
                               });
                           return false;
                         } else {
+                          controller.deleteData(controller.myData[index]["ID"]);
                           return Future.delayed(const Duration(seconds: 1),
                               () => direction == DismissDirection.endToStart);
                         }

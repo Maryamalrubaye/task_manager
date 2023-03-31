@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iau_task_manager/pages/add_new_task.dart';
-import 'package:iau_task_manager/pages/tasks_list.dart';
 import 'package:iau_task_manager/utils/main_theme.dart';
 import 'package:iau_task_manager/widgets/button.dart';
+
+import '../routes/routes.dart';
 
 class StartingPage extends StatefulWidget {
   const StartingPage({Key? key}) : super(key: key);
@@ -52,9 +52,7 @@ class _StartingPageState extends State<StartingPage> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const AddNewTask(),
-                    transition: Transition.fade,
-                    duration: const Duration(milliseconds: 300));
+                Get.toNamed(Routers.getAddTaskRoute());
               },
               child: const Button(
                 btnColor: ThemeColors.appMainColor,
@@ -67,9 +65,7 @@ class _StartingPageState extends State<StartingPage> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const TaskList(),
-                    transition: Transition.fade,
-                    duration: const Duration(milliseconds: 300));
+                Get.toNamed(Routers.getTaskListRoute());
               },
               child: const Button(
                 btnColor: ThemeColors.secondaryColor,

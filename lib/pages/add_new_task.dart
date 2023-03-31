@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iau_task_manager/controllers/data_controller.dart';
-import 'package:iau_task_manager/pages/tasks_list.dart';
 import 'package:iau_task_manager/utils/main_theme.dart';
 import 'package:iau_task_manager/widgets/text_field.dart';
 
+import '../routes/routes.dart';
 import '../widgets/alerts.dart';
 import '../widgets/button.dart';
 
@@ -86,10 +86,7 @@ class AddNewTask extends StatelessWidget {
                     if (_dataValidation()) {
                       Get.find<DataController>().postData(
                           taskTitle.text.trim(), taskContent.text.trim());
-                      Get.to(
-                        () => const TaskList(),
-                        transition: Transition.circularReveal,
-                      );
+                      Get.offNamed(Routers.getTaskListRoute());
                     }
                   },
                   child: const Button(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iau_task_manager/controllers/data_controller.dart';
-import 'package:iau_task_manager/pages/start.dart';
+import 'package:iau_task_manager/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,10 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.lazyPut(() => DataController());
     loadData();
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'IAU Task Manager',
-      home: StartingPage(),
+      initialRoute: Routers.getMainRoute(),
+      getPages: Routers.routes,
     );
   }
 }
